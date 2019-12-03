@@ -39,18 +39,25 @@ addEventListener() は関数または EventListener を実装したオブジェ�
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
         // 1. Random number,Math.floor() メソッドは、引数として与えた数以下の最大の整数を返します。
+        // スコープチェーン
+        // 以下のdiceは変数roundScore, activePlayerにかかる
         var dice = Math.floor(Math.random() * 6) + 1;
 
         //2. Display the result
+        // Document.querySelector() メソッドは、指定されたセレクターまたはセレクターのグループに一致する、文書内の最初の Element を返します。一致するものが見つからない場合は null を返します。
         var diceDOM = document.querySelector('.dice');
+        // style.cssのdisplay: inline-block;に繋がる
         diceDOM.style.display = 'block';
+        // index.htmlの<img src="">と繋がる
         diceDOM.src = 'dice-' + dice + '.png';
 
 
         //3. Update the round score IF the rolled number was NOT a 1
         if (dice !== 1) {
             //Add score
+
             roundScore += dice;
+            // Node.textContent プロパティは、ノードおよびその子孫のテキスト内容を表します。
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         } else {
             //Next player
@@ -82,8 +89,10 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     }
 });
 
+// Global
 function nextPlayer() {
     //Next player
+    // 
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
     /* Document の getElementById() メソッドは、
@@ -104,12 +113,13 @@ function nextPlayer() {
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
-
+// init()で冒頭の処理を行う
 function init() {
     scores = [0, 0];
     activePlayer = 0;
     roundScore = 0;
     gamePlaying = true;
+    // ダイスがゲーム前で未表示の状態
     document.querySelector('.dice').style.display = 'none';
 
     document.getElementById('score-0').textContent = '0';
@@ -120,6 +130,7 @@ function init() {
     document.getElementById('name-1').textContent = 'Player 2';
     document.querySelector('.player-0-panel').classList.remove('winner');
     document.querySelector('.player-1-panel').classList.remove('winner');
+    // パネルの表示リセット(toggleを使う手もある)
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');
