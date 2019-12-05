@@ -16,16 +16,19 @@ var lastDice;
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
         // 1. Random number
+        // サイコロを2つに増やし、目の合計がスコアに換算されるようにする
         var dice1 = Math.floor(Math.random() * 6) + 1;
         var dice2 = Math.floor(Math.random() * 6) + 1;
 
         //2. Display the result
+        //サイコロの表示を2つに増やす
         document.getElementById('dice-1').style.display = 'block';
         document.getElementById('dice-2').style.display = 'block';
         document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
         document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';
 
         //3. Update the round score IF the rolled number was NOT a 1
+        // Pig gameはサイコロが2つとも1だと"外れ"扱いとなり、スコアに換算されず相手プレーヤーにターンが移る
         if (dice1 !== 1 && dice2 !== 1) {
             //Add score
             roundScore += dice1 + dice2;
@@ -62,12 +65,13 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
         // Update the UI
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-
+        // 勝利条件の点数を自分で決められるスコア表の追加
         var input = document.querySelector('.final-score').value;
         var winningScore;
 
         // Undefined, 0, null or "" are COERCED to false
         // Anything else s COERCED to true
+        // 勝利条件の点数を入力しなければ、自動的に100点が勝利条件の点数とする
         if (input) {
             winningScore = input;
         } else {

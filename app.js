@@ -36,6 +36,7 @@ addEventListener() は関数または EventListener を実装したオブジェ�
 呼び出される EventTarget における指定されたイベント種別のイベントリスナーの
 リストに加えることで動作します。
  */
+// style.cssの.btn-rollで表示位置が固定される
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
         // 1. Random number,Math.floor() メソッドは、引数として与えた数以下の最大の整数を返します。
@@ -66,24 +67,31 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     }
 });
 
-
+// style.cssの.btn-holdで表示位置が固定される
+// サイコロが出た目をHOLDしてスコアに換算する。HOLDすればNextPlayerにターンが移る
 document.querySelector('.btn-hold').addEventListener('click', function() {
+    // gamePlayingがtrueならゲーム再開
     if (gamePlaying) {
         // Add CURRENT score to GLOBAL score
         scores[activePlayer] += roundScore;
 
         // Update the UI
+        // 
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
         // Check if player won the game
+        // どちらかのプレーヤーが勝利条件=100点に達したら以下の処理を行う
         if (scores[activePlayer] >= 100) {
+            // 100点に達したプレーヤーがPLAYER#の代わりに'Winner(勝者)!'と表示される
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
             document.querySelector('.dice').style.display = 'none';
+            // style.cssの.winnerで
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+            // gamePlayingをfalseにしてゲームを終了判定
             gamePlaying = false;
         } else {
-            //Next player
+            //Next player　この後定義する関数のnextPlayerを
             nextPlayer();
         }
     }
@@ -108,29 +116,34 @@ function nextPlayer() {
 
     //document.querySelector('.player-0-panel').classList.remove('active');
     //document.querySelector('.player-1-panel').classList.add('active');
-
     document.querySelector('.dice').style.display = 'none';
 }
 
+// style.cssの.btn-newで表示位置が固定される
 document.querySelector('.btn-new').addEventListener('click', init);
 // init()で冒頭の処理を行う
 function init() {
+    // scoresは両方のプレーヤーのスコアが入る,[0, 0]はPlayer1のスコアが左に、Player2のスコアが右に入る
+    // roundScoreは
+    // activePlayerはPlayer1が"0"ならPlayer2は"1"
     scores = [0, 0];
     activePlayer = 0;
     roundScore = 0;
+    // gamePlayingがtrueならゲーム再開
     gamePlaying = true;
     // ダイスがゲーム前で未表示の状態
     document.querySelector('.dice').style.display = 'none';
-
+    // ダイスの目がスコアとなって数字で表示される
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
+    // プレイヤーネームの表示
     document.getElementById('name-0').textContent = 'Player 1';
     document.getElementById('name-1').textContent = 'Player 2';
     document.querySelector('.player-0-panel').classList.remove('winner');
     document.querySelector('.player-1-panel').classList.remove('winner');
-    // パネルの表示リセット(toggleを使う手もある)
+    // acvivePlayerがどちらか勝利後、NEw GAMEのボタンを押せばスコアがリセットされ、新たにactivePlayer1からゲームが再開する
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');

@@ -1,7 +1,7 @@
 /**********************************************
 *** GENERAL
 **********************************************/
-
+/*勝利条件のスコアの表示(challenge.jsで有効)*/
 .final-score {
     position: absolute;
     left: 50%;
@@ -17,7 +17,7 @@
 }
 
 .final-score:focus { outline: none; }
-
+/*challenge.js(拡張版)で有効、サイコロ2つの場所の設定*/
 #dice-1 { top: 120px; }
 #dice-2 { top: 250px; }
 
@@ -89,7 +89,7 @@ body {
     color: #EB4D4D;
     margin-bottom: 130px;
 }
-
+/*activePlayerは表示の色が変わります */
 .active { background-color: #f7f7f7; }
 .active .player-name { font-weight: 300; }
 
@@ -169,6 +169,6 @@ i {
     height: 100px;
     box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
 }
-
+/*勝者(Winner)のネームの色を変える*/
 .winner { background-color: #f7f7f7; }
 .winner .player-name { font-weight: 300; color: #EB4D4D; }
