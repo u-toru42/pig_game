@@ -1,12 +1,10 @@
 /*
 GAME RULES:
-
 - The game has 2 players, playing in rounds
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
-
 */
 
 var scores, roundScore, activePlayer, gamePlaying;
@@ -26,7 +24,6 @@ addEventListener()は、3つの引数を取ります。基本的な動作は、
 バブリングフェーズのどちらで実行するかを真偽値で指定します。
 初期値は false で、バブリングフェーズで実行されます。
 省略した場合は、falseと見なされます。
-
 EventTarget の addEventListener() メソッドは、
 特定のイベントが対象に配信されるたびに呼び出される関数を設定します。
 対象としてよくあるものは Element, Document, Window ですが、
